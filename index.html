@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StreamFlix</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>STREAM<span>FLIX</span></h1>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#movies">Movies</a>
+    <a href="#shows">Shows</a>
+    <a href="#plans">Plans</a>
+  </nav>
+
+  <input id="search" placeholder="Search movies...">
+
+  <button id="loginBtn" onclick="login()">Login</button>
+  <button id="logoutBtn" onclick="logout()">Logout</button>
+</header>
+
+<section id="home" class="hero">
+  <div class="heroText">
+    <p class="tag">STREAMFLIX ORIGINAL</p>
+    <h2>Unlimited Movies,<br>Shows & Entertainment</h2>
+    <p>Watch your favourite movies and shows anytime.</p>
+    <button onclick="openMovie(0)">▶ Watch Now</button>
+  </div>
+</section>
+
+<section id="movies">
+  <h2>🔥 Popular Movies</h2>
+  <div id="movieList" class="cards"></div>
+</section>
+
+<section id="shows">
+  <h2>📺 Popular Shows</h2>
+  <div id="showList" class="cards"></div>
+</section>
+
+<section id="plans">
+  <h2>💳 Choose Your Plan</h2>
+
+  <div class="plans">
+
+    <div class="plan">
+      <h3>BASIC</h3>
+      <h4>₹149 <small>/month</small></h4>
+      <p>1 Device</p>
+      <p>HD Quality</p>
+      <button onclick="buyPlan('Basic',149)">Choose</button>
+    </div>
+
+    <div class="plan popular">
+      <b>MOST POPULAR</b>
+      <h3>STANDARD</h3>
+      <h4>₹299 <small>/month</small></h4>
+      <p>2 Devices</p>
+      <p>Full HD Quality</p>
+      <button onclick="buyPlan('Standard',299)">Choose</button>
+    </div>
+
+    <div class="plan">
+      <h3>PREMIUM</h3>
+      <h4>₹499 <small>/month</small></h4>
+      <p>4 Devices</p>
+      <p>4K Quality</p>
+      <button onclick="buyPlan('Premium',499)">Choose</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- MOVIE DETAILS -->
+
+<div id="moviePopup" class="popup">
+  <div class="movieBox">
+
+    <button class="close" onclick="closeMovie()">✕</button>
+
+    <img id="popupImage">
+
+    <div class="movieInfo">
+      <h2 id="popupTitle"></h2>
+      <p id="popupGenre"></p>
+
+      <label>Language:</label>
+
+      <select id="popupLanguage">
+        <option>Telugu</option>
+        <option>Hindi</option>
+        <option>Tamil</option>
+      </select>
+
+      <br><br>
+
+      <button onclick="watchLink()">▶ Watch</button>
+      <button onclick="addWatchlist()">＋ Watchlist</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAYMENT -->
+
+<div id="paymentPopup" class="popup">
+
+  <div class="paymentBox">
+
+    <button class="close" onclick="closePayment()">✕</button>
+
+    <h2>💳 Subscribe</h2>
+
+    <h3 id="selectedPlan"></h3>
+
+    <input id="name" placeholder="Full Name">
+
+    <select id="method">
+      <option>UPI</option>
+      <option>Paytm</option>
+      <option>Card</option>
+    </select>
+
+    <input id="paymentId"
+           placeholder="UPI ID / Paytm / Card">
+
+    <button onclick="payment()">Pay Now</button>
+
+  </div>
+</div>
+
+<footer>
+  <h2>STREAMFLIX</h2>
+  <p>© 2026 StreamFlix | College Project</p>
+</footer>
+
+<script src="style.js"></script>
+</body>
+</html>
