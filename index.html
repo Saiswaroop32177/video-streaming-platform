@@ -1,145 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>StreamFlix</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamFlix - Watch Movies, Shows & Series</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
 
-<header>
-  <h1>STREAM<span>FLIX</span></h1>
+  <!-- HEADER -->
+  <header>
+    <div class="logo" onclick="scrollToSection('home')">STREAM<span>FLIX</span></div>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#movies">Movies</a>
-    <a href="#shows">Shows</a>
-    <a href="#plans">Plans</a>
-  </nav>
+    <nav>
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#movies" class="nav-link">Movies</a>
+      <a href="#shows" class="nav-link">Shows</a>
+      <a href="#series" class="nav-link">Series</a>
+      <a href="#mylist" class="nav-link">My List</a>
+      <a href="#plans" class="nav-link">Plans</a>
+    </nav>
 
-  <input id="search" placeholder="Search movies...">
+    <div class="header-right">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" placeholder="Titles, genres...">
+      </div>
+      <div class="user-area">
+        <span id="userName" class="user-name"></span>
+        <button id="loginBtn" onclick="openAuthModal('login')"><i class="fas fa-user"></i> Sign In</button>
+        <button id="logoutBtn" onclick="logout()" style="display:none;"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+      </div>
+    </div>
+  </header>
 
-  <button id="loginBtn" onclick="login()">Login</button>
-  <button id="logoutBtn" onclick="logout()">Logout</button>
-</header>
+  <!-- HERO CAROUSEL (clear & sharp) -->
+  <section id="home" class="hero">
+    <div class="hero-slides" id="heroSlides"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="tag">STREAMFLIX ORIGINAL</p>
+      <h1 id="heroTitle">Unlimited Movies, Shows & Series</h1>
+      <p id="heroDesc">Watch your favourite content anytime, anywhere.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" id="heroPlayBtn"><i class="fas fa-play"></i> Play</button>
+        <button class="btn-secondary" onclick="scrollToSection('movies')"><i class="fas fa-info-circle"></i> More Info</button>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
 
-<section id="home" class="hero">
-  <div class="heroText">
-    <p class="tag">STREAMFLIX ORIGINAL</p>
-    <h2>Unlimited Movies,<br>Shows & Entertainment</h2>
-    <p>Watch your favourite movies and shows anytime.</p>
-    <button onclick="openMovie(0)">▶ Watch Now</button>
+  <!-- TRENDING -->
+  <section class="content-row" id="trending">
+    <h2><i class="fas fa-fire"></i> Trending Now</h2>
+    <div id="trendingList" class="cards-row"></div>
+  </section>
+
+  <!-- MOVIES -->
+  <section id="movies" class="content-row">
+    <h2><i class="fas fa-film"></i> Popular Movies</h2>
+    <div id="movieList" class="cards-row"></div>
+  </section>
+
+  <!-- SHOWS -->
+  <section id="shows" class="content-row">
+    <h2><i class="fas fa-tv"></i> Popular Shows</h2>
+    <div id="showList" class="cards-row"></div>
+  </section>
+
+  <!-- SERIES -->
+  <section id="series" class="content-row">
+    <h2><i class="fas fa-clapperboard"></i> Top Series</h2>
+    <div id="seriesList" class="cards-row"></div>
+  </section>
+
+  <!-- MY LIST -->
+  <section id="mylist" class="content-row">
+    <h2><i class="fas fa-heart"></i> My List</h2>
+    <div id="watchlistList" class="cards-row">
+      <p class="empty-msg">Your list is empty. Add titles from the details page.</p>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section id="plans" class="plans-section">
+    <h2><i class="fas fa-credit-card"></i> Choose Your Plan</h2>
+    <p class="plans-subtitle">Flexible plans. Cancel anytime.</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>BASIC</h3>
+        <div class="price">₹149 <small>/month</small></div>
+        <ul>
+          <li><i class="fas fa-check"></i> 1 Device</li>
+          <li><i class="fas fa-check"></i> HD Quality</li>
+          <li><i class="fas fa-check"></i> Unlimited Movies & Shows</li>
+        </ul>
+        <button onclick="buyPlan('Basic', 149)">Choose Plan</button>
+      </div>
+      <div class="plan popular">
+        <div class="badge">MOST POPULAR</div>
+        <h3>STANDARD</h3>
+        <div class="price">₹299 <small>/month</small></div>
+        <ul>
+          <li><i class="fas fa-check"></i> 2 Devices</li>
+          <li><i class="fas fa-check"></i> Full HD Quality</li>
+          <li><i class="fas fa-check"></i> Download & Watch Offline</li>
+        </ul>
+        <button onclick="buyPlan('Standard', 299)">Choose Plan</button>
+      </div>
+      <div class="plan">
+        <h3>PREMIUM</h3>
+        <div class="price">₹499 <small>/month</small></div>
+        <ul>
+          <li><i class="fas fa-check"></i> 4 Devices</li>
+          <li><i class="fas fa-check"></i> 4K + HDR Quality</li>
+          <li><i class="fas fa-check"></i> Spatial Audio & Priority Support</li>
+        </ul>
+        <button onclick="buyPlan('Premium', 499)">Choose Plan</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTH MODAL -->
+  <div id="authModal" class="popup">
+    <div class="auth-box">
+      <button class="close-btn" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+      <h2 id="authTitle">Sign In</h2>
+      <p class="auth-sub" id="authSub">Welcome back to StreamFlix</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">Sign In</button>
+        <button class="auth-tab" id="tabSignup" onclick="switchAuth('signup')">Sign Up</button>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuth(event)">
+        <div class="form-group" id="nameGroup" style="display:none;">
+          <input type="text" id="authName" placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <input type="email" id="authEmail" placeholder="Email address" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="authPassword" placeholder="Password" required minlength="4">
+        </div>
+        <button type="submit" class="btn-primary full" id="authSubmitBtn">Sign In</button>
+      </form>
+      <p class="auth-switch" id="authSwitchText">
+        New to StreamFlix? <a href="#" onclick="switchAuth('signup'); return false;">Sign up now</a>
+      </p>
+    </div>
   </div>
-</section>
 
-<section id="movies">
-  <h2>🔥 Popular Movies</h2>
-  <div id="movieList" class="cards"></div>
-</section>
+  <!-- MOVIE DETAIL + PLAYER -->
+  <div id="moviePopup" class="popup">
+    <div class="movie-box">
+      <button class="close-btn" onclick="closeMovie()"><i class="fas fa-times"></i></button>
 
-<section id="shows">
-  <h2>📺 Popular Shows</h2>
-  <div id="showList" class="cards"></div>
-</section>
+      <div class="player-area" id="playerArea">
+        <img id="popupImage" alt="Poster">
+        <div class="play-overlay" id="playOverlay" onclick="startPlayer()">
+          <i class="fas fa-play-circle"></i>
+          <span>Play Now</span>
+        </div>
+        <div id="ytPlayer" class="yt-player" style="display:none;"></div>
+      </div>
 
-<section id="plans">
-  <h2>💳 Choose Your Plan</h2>
-
-  <div class="plans">
-
-    <div class="plan">
-      <h3>BASIC</h3>
-      <h4>₹149 <small>/month</small></h4>
-      <p>1 Device</p>
-      <p>HD Quality</p>
-      <button onclick="buyPlan('Basic',149)">Choose</button>
+      <div class="movie-info">
+        <h2 id="popupTitle"></h2>
+        <div class="meta">
+          <span id="popupType" class="type-badge"></span>
+          <span id="popupGenre"></span>
+        </div>
+        <p id="popupDesc" class="desc"></p>
+        <div class="controls">
+          <label>Language:</label>
+          <select id="popupLanguage">
+            <option>Telugu</option>
+            <option>Hindi</option>
+            <option>Tamil</option>
+            <option>English</option>
+          </select>
+        </div>
+        <div class="action-buttons">
+          <button class="btn-primary" onclick="startPlayer()"><i class="fas fa-play"></i> Play</button>
+          <button class="btn-outline" id="watchlistBtn" onclick="toggleWatchlist()"><i class="fas fa-plus"></i> My List</button>
+        </div>
+      </div>
     </div>
-
-    <div class="plan popular">
-      <b>MOST POPULAR</b>
-      <h3>STANDARD</h3>
-      <h4>₹299 <small>/month</small></h4>
-      <p>2 Devices</p>
-      <p>Full HD Quality</p>
-      <button onclick="buyPlan('Standard',299)">Choose</button>
-    </div>
-
-    <div class="plan">
-      <h3>PREMIUM</h3>
-      <h4>₹499 <small>/month</small></h4>
-      <p>4 Devices</p>
-      <p>4K Quality</p>
-      <button onclick="buyPlan('Premium',499)">Choose</button>
-    </div>
-
   </div>
-</section>
 
-<!-- MOVIE DETAILS -->
-
-<div id="moviePopup" class="popup">
-  <div class="movieBox">
-
-    <button class="close" onclick="closeMovie()">✕</button>
-
-    <img id="popupImage">
-
-    <div class="movieInfo">
-      <h2 id="popupTitle"></h2>
-      <p id="popupGenre"></p>
-
-      <label>Language:</label>
-
-      <select id="popupLanguage">
-        <option>Telugu</option>
-        <option>Hindi</option>
-        <option>Tamil</option>
+  <!-- PAYMENT -->
+  <div id="paymentPopup" class="popup">
+    <div class="payment-box">
+      <button class="close-btn" onclick="closePayment()"><i class="fas fa-times"></i></button>
+      <h2><i class="fas fa-lock"></i> Subscribe Securely</h2>
+      <h3 id="selectedPlan"></h3>
+      <input type="text" id="name" placeholder="Full Name">
+      <select id="method">
+        <option value="UPI">UPI</option>
+        <option value="Paytm">Paytm</option>
+        <option value="Card">Credit / Debit Card</option>
       </select>
-
-      <br><br>
-
-      <button onclick="watchLink()">▶ Watch</button>
-      <button onclick="addWatchlist()">＋ Watchlist</button>
+      <input type="text" id="paymentId" placeholder="UPI ID / Number / Card details">
+      <button class="btn-primary full" onclick="payment()">Pay Now</button>
+      <p class="secure-note"><i class="fas fa-shield-alt"></i> Encrypted & secure payment</p>
     </div>
-
   </div>
-</div>
 
-<!-- PAYMENT -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">STREAM<span>FLIX</span></div>
+      <p>© 2026 StreamFlix. Local Project — Inspired by Netflix & Prime Video.</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#movies">Movies</a>
+        <a href="#series">Series</a>
+        <a href="#plans">Plans</a>
+      </div>
+    </div>
+  </footer>
 
-<div id="paymentPopup" class="popup">
-
-  <div class="paymentBox">
-
-    <button class="close" onclick="closePayment()">✕</button>
-
-    <h2>💳 Subscribe</h2>
-
-    <h3 id="selectedPlan"></h3>
-
-    <input id="name" placeholder="Full Name">
-
-    <select id="method">
-      <option>UPI</option>
-      <option>Paytm</option>
-      <option>Card</option>
-    </select>
-
-    <input id="paymentId"
-           placeholder="UPI ID / Paytm / Card">
-
-    <button onclick="payment()">Pay Now</button>
-
-  </div>
-</div>
-
-<footer>
-  <h2>STREAMFLIX</h2>
-  <p>© 2026 StreamFlix | College Project</p>
-</footer>
-
-<script src="style.js"></script>
+  <script src="style.js"></script>
 </body>
 </html>
